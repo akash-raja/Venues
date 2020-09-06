@@ -6,14 +6,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.venues.api.FourSquareService
 import kotlinx.coroutines.launch
 
-class VenueDetailsViewModel(
-    private val venueId: String,
-    fourSquareService: FourSquareService = FourSquareService.create()
-) : ViewModel() {
+class VenueDetailsViewModel(private val fourSquareService: FourSquareService = FourSquareService.create()) : ViewModel() {
 
     val detailUIData = MutableLiveData<VenueDetailsUIState>()
 
-    init {
+    fun getVenueDetails(venueId: String) {
         viewModelScope.launch {
             detailUIData.value = VenueDetailsUIState.Loading
 

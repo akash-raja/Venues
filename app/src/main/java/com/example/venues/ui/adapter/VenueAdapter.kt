@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.venues.databinding.VenueItemBinding
-import com.example.venues.ui.VenueDataStore
+import com.example.venues.ui.search.database.VenueDataStore
 
 class VenueAdapter(private val listener: (String) -> Unit) :
     ListAdapter<VenueDataStore, VenueViewHolder>(object : DiffUtil.ItemCallback<VenueDataStore>() {

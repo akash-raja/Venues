@@ -1,12 +1,10 @@
 package com.example.venues.ui.search
 
-import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -15,11 +13,17 @@ import com.example.venues.databinding.FragmentVenueSearchBinding
 import com.example.venues.ui.adapter.VenueAdapter
 import com.example.venues.util.Network.isNetworkAvailable
 import com.google.android.material.snackbar.Snackbar
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
-class VenueSearchFragment : Fragment() {
+class VenueSearchFragment : DaggerFragment() {
+
+    @Inject
+    lateinit var factory: VenueSearchViewModelFactory
 
     private var _binding: FragmentVenueSearchBinding? = null
     private val binding get() = _binding!!
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentVenueSearchBinding.inflate(inflater, container, false)
@@ -27,16 +31,14 @@ class VenueSearchFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val venueSearchViewModel = ViewModelProvider(this,
-            VenueSearchViewModelFactory(requireContext().applicationContext as Application)
-        ).get(VenueSearchViewModel::class.java)
+        val venueSearchViewModel = ViewModelProvider(this, factory).get(VenueSearchViewModel::class.java)
 
         val venueAdapter = VenueAdapter {
             val action = VenueSearchFragmentDirections.actionVenueSearchFragmentToVenueDatailsFragment(it)
             if (isNetworkAvailable(requireContext())) {
                 findNavController().navigate(action)
             } else {
-                Toast.makeText(requireContext(), "Please check Internet", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.check_internet), Toast.LENGTH_SHORT).show()
             }
         }
 

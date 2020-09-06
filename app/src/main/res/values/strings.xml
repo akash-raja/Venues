@@ -6,4 +6,5 @@
     <string name="enter_a_location">Enter A Location</string>
     <string name="submit">Submit</string>
     <string name="failed_message">Request Failed. Please try again and check Internet.</string>
+    <string name="check_internet">Please check Internet</string>
 </resources>

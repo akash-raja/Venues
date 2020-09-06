@@ -5,13 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.venues.api.FourSquareService
-import com.example.venues.ui.*
+import com.example.venues.ui.search.database.VenueDataStore
+import com.example.venues.ui.search.database.VenueDatabase
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
 class VenueSearchViewModel(
-    fourSquareService: FourSquareService = FourSquareService.create(),
+    fourSquareService: FourSquareService,
     venueDatabase: VenueDatabase
 ) : ViewModel() {
 
